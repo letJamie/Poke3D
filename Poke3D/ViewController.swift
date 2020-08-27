@@ -37,7 +37,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             
             configuration.trackingImages = imageToTrack
             
-            configuration.maximumNumberOfTrackedImages = 1
+            configuration.maximumNumberOfTrackedImages = 2
             print("added")
             
         }
@@ -57,7 +57,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let node = SCNNode()
         
         if let imageAnchor = anchor as? ARImageAnchor {
-            
+                    
             let plane = SCNPlane(
                 width: imageAnchor.referenceImage.physicalSize.width,
                 height: imageAnchor.referenceImage.physicalSize.height
@@ -71,17 +71,31 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             
             node.addChildNode(planeNode)
             
-            if let pokeScene = SCNScene(named: "art.scnassets/eevee.scn") {
+            if imageAnchor.referenceImage.name == "eevee-card" {
                 
-                if let pokeNode = pokeScene.rootNode.childNodes.first {
+                if let pokeScene = SCNScene(named: "art.scnassets/eevee.scn") {
                     
-                    pokeNode.eulerAngles.x = .pi / 2
-                    
-                    planeNode.addChildNode(pokeNode)
+                    if let pokeNode = pokeScene.rootNode.childNodes.first {
+                        
+                        pokeNode.eulerAngles.x = .pi / 2
+                        
+                        planeNode.addChildNode(pokeNode)
+                    }
                 }
-                
             }
             
+            if imageAnchor.referenceImage.name == "oddish-card" {
+                
+                if let pokeScene = SCNScene(named: "art.scnassets/oddish.scn") {
+                    
+                    if let pokeNode = pokeScene.rootNode.childNodes.first {
+                        
+                        pokeNode.eulerAngles.x = .pi / 2
+                        
+                        planeNode.addChildNode(pokeNode)
+                    }
+                }
+            }
         }
      
         return node
